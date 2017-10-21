@@ -172,7 +172,7 @@ public class HandMovement : MonoBehaviour {
         } else if (state == HandState.Reversing) {
             state = HandState.Start;
         }
-        Debug.Log("Next State: " + this.state);
+        // Debug.Log("Next State: " + this.state);
         return countDown;
     }
 }
