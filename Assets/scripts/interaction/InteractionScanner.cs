@@ -50,6 +50,7 @@ public class InteractionScanner : MonoBehaviour {
         else
         {
             Debug.Log("no ray hits!");
+            NotificationManager.inst.RemoveNotification(notifKey);
         }
 	}
 }
