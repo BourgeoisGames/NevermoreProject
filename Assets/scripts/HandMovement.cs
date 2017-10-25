@@ -123,7 +123,7 @@ public class HandMovement : MonoBehaviour {
         Vector3 rot = transform.parent.rotation.eulerAngles + startRotation;
         transform.rotation = Quaternion.Euler(rot);
         // transform.position = startPosition;
-        Debug.Log("new Pos: " + transform.position);
+        //Debug.Log("new Pos: " + transform.position);
     }
 
     private void HandleAdjustFinishedState()

@@ -11,8 +11,8 @@ public class NotificationManager : MonoBehaviour {
     public float update_threshold = 1f;
     public int fontSize = 18;
 
-    private NotificationManager _instance;
-    public NotificationManager inst
+    private static NotificationManager _instance;
+    public static NotificationManager inst
     {
         get { return _instance; }
     }
@@ -98,6 +98,26 @@ public class NotificationManager : MonoBehaviour {
 
     public void PostNotification(string key, string text, Color color, float duration)
     {
+        if (notifications.ContainsKey(key))
+        {
+            ReplaceNotification(key, text, color, duration);
+        }
+        else
+        {
+            PostNewNotification(key, text, color, duration);
+        }
+    }
+
+    private void ReplaceNotification(string key, string text, Color color, float duration)
+    {
+        Notification note = notifications[key];
+        note.color = color;
+        note.text = text;
+        note.durationRemaining = duration;
+    }
+
+    private void PostNewNotification(string key, string text, Color color, float duration)
+    {
         Debug.Log("posting new notification - " + key + ": " + text + ". Duration: " + duration);
         UpdateNotifications();
         RemoveExpiredNotifications();
@@ -111,7 +131,7 @@ public class NotificationManager : MonoBehaviour {
     public bool RemoveNotification(string key)
     {
         if (!notifications.ContainsKey(key)) {
-            Debug.Log("failed to remove notification '" + key + "'");
+            Debug.Log("failed to remove notification '" + key + "' because it was not found!");
             return false;
         }
         Notification note = notifications[key];
