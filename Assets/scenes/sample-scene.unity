@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 447751170}
   - component: {fileID: 447751171}
   - component: {fileID: 447751172}
+  - component: {fileID: 447751173}
   m_Layer: 0
   m_Name: Gatling-Turret
   m_TagString: Untagged
@@ -403,6 +404,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &447751173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 447751169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b99d22b16e4dfbc44963bbaed7030d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2061051380}
+  rotationSpeed: 1
 --- !u!1 &587380124
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1102,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4496992496668064, guid: daa1a977a89bbff4bb1071a5e5d34650, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.16
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 4496992496668064, guid: daa1a977a89bbff4bb1071a5e5d34650, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1572,6 +1586,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1920104996}
+--- !u!4 &2061051380 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4496992496668064, guid: daa1a977a89bbff4bb1071a5e5d34650,
+    type: 2}
+  m_PrefabInternal: {fileID: 1677668090}
 --- !u!1001 &2136417702
 Prefab:
   m_ObjectHideFlags: 0
