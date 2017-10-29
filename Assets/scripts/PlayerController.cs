@@ -6,19 +6,24 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject playerModel;
     public Transform camera;
-    public float rightMultiplier = 1;
-    public float forwardMultiplier = 1;
-    public float walkSpeed = 4;
-    public float runSpeed = 8;
+    public float rightMultiplier = 1f;
+    public float forwardMultiplier = 1f;
+    public float walkSpeed = 4f;
+    public float runSpeed = 8f;
+    public float jumpSpeed = 2f;
 
-    public float cameraX = 1;
-    public float cameraY = 1;
-    public float cameraSensitivity = 25;
+    public float cameraX = 1f;
+    public float cameraY = 1f;
+    public float cameraSensitivity = 25f;
+
+    private Rigidbody rb;
+    private bool _jumping = false;
 
 	// Use this for initialization
 	void Start () {
         playerModel = gameObject;
         camera = transform.Find("CameraHolder");
+        rb = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +42,16 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("alt fire!");
             Transform hand = camera.Find("LeftHand");
             ActivateHand(hand);
+        }
+
+
+        Debug.Log("v: " + rb.velocity);
+        if (Input.GetAxis("Jump") != 0 && rb.velocity.y == 0)
+        {
+            Vector3 jump = rb.velocity;
+            jump.y = jumpSpeed;
+            rb.velocity = jump;
+
         }
 	}
     
