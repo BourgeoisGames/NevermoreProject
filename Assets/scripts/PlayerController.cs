@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
         }
 
 
-        Debug.Log("v: " + rb.velocity);
+        //Debug.Log("v: " + rb.velocity);
         if (Input.GetAxis("Jump") != 0 && rb.velocity.y == 0)
         {
             Vector3 jump = rb.velocity;

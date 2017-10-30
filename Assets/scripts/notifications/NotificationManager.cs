@@ -36,7 +36,7 @@ public class NotificationManager : MonoBehaviour {
 
         foreach (Transform child in notificationArea.transform) 
         {
-            Debug.Log("removing a child from notification area at startup.");
+            // Debug.Log("removing a child from notification area at startup.");
             Destroy(child.gameObject);
         }
     }
@@ -76,7 +76,7 @@ public class NotificationManager : MonoBehaviour {
         }
         foreach (string key in toRemove)
         {
-            Debug.Log("removing 1 expired notification!");
+            // Debug.Log("removing 1 expired notification!");
             Destroy(notifications[key]._textObj);
             notifications.Remove(key);
         }
@@ -93,7 +93,7 @@ public class NotificationManager : MonoBehaviour {
         Notification note = notifications[key];
         note.durationRemaining = newDuration;
         RemoveExpiredNotifications();
-        Debug.Log("notification '" + key + "' duration set to " + newDuration);
+        // Debug.Log("notification '" + key + "' duration set to " + newDuration);
     }
 
     public void PostNotification(string key, string text, Color color, float duration)
@@ -118,7 +118,7 @@ public class NotificationManager : MonoBehaviour {
 
     private void PostNewNotification(string key, string text, Color color, float duration)
     {
-        Debug.Log("posting new notification - " + key + ": " + text + ". Duration: " + duration);
+        // Debug.Log("posting new notification - " + key + ": " + text + ". Duration: " + duration);
         UpdateNotifications();
         RemoveExpiredNotifications();
         Notification note = new Notification(notificationArea.transform);
@@ -166,7 +166,7 @@ public class NotificationManager : MonoBehaviour {
         {
             _textObj = MakeNewText("notification");
             _textObj.transform.SetParent(parent);
-            Debug.Log("created new notification");
+            //Debug.Log("created new notification");
         }
 
         private GameObject MakeNewText(string objName)
