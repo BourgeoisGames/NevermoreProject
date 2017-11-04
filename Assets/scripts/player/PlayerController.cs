@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody rb;
     private bool _jumping = false;
+    private bool _magBoots = false;
+    private Vector3 baseGravoty;
 
 	// Use this for initialization
 	void Start () {
@@ -46,14 +48,35 @@ public class PlayerController : MonoBehaviour {
 
 
         //Debug.Log("v: " + rb.velocity);
-        if (Input.GetAxis("Jump") != 0 && rb.velocity.y == 0)
+        if (Input.GetAxis("Jump") != 0 && IsGrounded())
         {
             Vector3 jump = rb.velocity;
             jump.y = jumpSpeed;
             rb.velocity = jump;
-
         }
+
+        MitigateGravity();
 	}
+
+    public void AlignWithObject(Transform trans)
+    {
+        this.transform.rotation = trans.rotation;
+    }
+
+    public void MitigateGravity()
+    {
+        if (!rb.useGravity) { return; }
+        Vector3 antiGrav = -Physics.gravity * Time.deltaTime;
+        rb.AddForce(antiGrav);
+    }
+
+    public bool IsGrounded()
+    {
+        bool isGrounded = Mathf.Abs(rb.velocity.y) < .00001f;
+        Debug.Log("IsGrounded() == " + isGrounded);
+        Debug.Log(rb.velocity.y);
+        return isGrounded;
+    }
     
     private void ActivateHand(Transform handTrans) {
         if (handTrans != null)
