@@ -6,12 +6,22 @@ public class InteractionScanner : MonoBehaviour {
 
     public float interactionDistance = 1f;
     public bool notifyInteraction = true;
+    public string interactionMessage = "Click to Interact!";
+    public bool showInteractionMessage = true;
+    public string notifKey = "reticle";
 
-    private string notifKey = "reticle";
     private float notifDuration = .01f;
     private Color notifColor = new Color(0, 0, 0);
-    
+    private RaycastScanner rayScan;
 
+    void Start()
+    {
+        rayScan = gameObject.GetComponent<RaycastScanner>();
+        if (rayScan == null)
+        {
+            rayScan = gameObject.AddComponent<RaycastScanner>();
+        }
+    }
 
     private void NoticeObject(string text)
     {
@@ -23,34 +33,34 @@ public class InteractionScanner : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-        RaycastHit objHit;
-        bool hit = Physics.Raycast(transform.position, transform.forward, out objHit);
-        if (hit)
+	void Update () {
+        GameObject obj = rayScan.GetVisibleObjectWithinDistance(interactionDistance);
+        if (CanInteractWith(obj, true))
         {
-            if (objHit.distance > interactionDistance)
+            if (Input.GetMouseButtonDown(0))
             {
-                NoticeObject("object is to far away to interact!");
-                return;
+                obj.GetComponent<Interactive>().Interact();
             }
-            Interactive interaction = objHit.transform.gameObject.GetComponent<Interactive>();
-            if (interaction == null)
-            {
-                NoticeObject("object is not interactive!");
-            }
-            else if (Input.GetMouseButtonDown(0))
-            {
-                interaction.Interact();
-            }
-            else
-            {
-                NoticeObject("Click to interact!");
-            }
-        }
-        else
-        {
-            // Debug.Log("no ray hits!");
-            NotificationManager.inst.RemoveNotification(notifKey);
         }
 	}
+
+    private bool CanInteractWith(GameObject obj)
+    {
+        return CanInteractWith(obj, showInteractionMessage);
+    }
+
+    private bool CanInteractWith(GameObject obj, bool notify)
+    {
+        if (obj != null)
+        {
+            Interactive interaction = obj.GetComponent<Interactive>();
+            if (interaction != null)
+            {
+                if (notify) { NoticeObject(interactionMessage); }
+                return true;
+            }
+        }
+        if (notify) { NotificationManager.inst.RemoveNotification(notifKey); }
+        return false;
+    }
 }

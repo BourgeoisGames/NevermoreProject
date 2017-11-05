@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     public float cameraY = 1f;
     public float cameraSensitivity = 25f;
 
+    private MagBootsCtrl magBoots;
     private Rigidbody rb;
     private bool _jumping = false;
     private bool _magBoots = false;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour {
         playerModel = gameObject;
         camera = transform.Find("CameraHolder");
         rb = GetComponent<Rigidbody>();
+        magBoots = transform.FindChild("MagBoots").gameObject.GetComponent<MagBootsCtrl>();
 	}
 	
 	// Update is called once per frame
@@ -54,27 +56,12 @@ public class PlayerController : MonoBehaviour {
             jump.y = jumpSpeed;
             rb.velocity = jump;
         }
-
-        MitigateGravity();
 	}
-
-    public void AlignWithObject(Transform trans)
-    {
-        this.transform.rotation = trans.rotation;
-    }
-
-    public void MitigateGravity()
-    {
-        if (!rb.useGravity) { return; }
-        Vector3 antiGrav = -Physics.gravity * Time.deltaTime;
-        rb.AddForce(antiGrav);
-    }
 
     public bool IsGrounded()
     {
         bool isGrounded = Mathf.Abs(rb.velocity.y) < .00001f;
-        Debug.Log("IsGrounded() == " + isGrounded);
-        Debug.Log(rb.velocity.y);
+        //Debug.Log("IsGrounded() == " + isGrounded);
         return isGrounded;
     }
     
@@ -99,8 +86,12 @@ public class PlayerController : MonoBehaviour {
     {
         float rotY = Input.GetAxis("Mouse X") * cameraX* Time.deltaTime * cameraSensitivity;
         float rotX = Input.GetAxis("Mouse Y") * cameraY* Time.deltaTime * cameraSensitivity;
-        playerModel.transform.Rotate(new Vector3(0, rotY, 0));
+        if (rb.useGravity || magBoots.bootsAttached) {
+            playerModel.transform.Rotate(new Vector3(0, rotY, 0));
+            camera.Rotate(new Vector3(-rotX, 0, 0));
+        } else {
+            playerModel.transform.Rotate(new Vector3(-rotX, rotY, 0));
+        }
 
-        camera.Rotate(new Vector3(-rotX, 0, 0));
     }
 }
