@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour {
         playerModel = gameObject;
         camera = transform.Find("CameraHolder");
         rb = GetComponent<Rigidbody>();
-        magBoots = transform.FindChild("MagBoots").gameObject.GetComponent<MagBootsCtrl>();
+        magBoots = transform.Find("MagBoots").gameObject.GetComponent<MagBootsCtrl>();
 	}
 	
 	// Update is called once per frame
