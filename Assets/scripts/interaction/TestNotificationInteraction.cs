@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestNotificationInteraction : MonoBehaviour {
+public class TESTNotificationInteraction : MonoBehaviour {
 
     bool test = true;
 	

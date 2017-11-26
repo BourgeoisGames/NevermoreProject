@@ -1,3 +1,9 @@
 wrench: https://www.assetstore.unity3d.com/en/#!/content/68359
 metal: https://www.assetstore.unity3d.com/en/#!/content/23812
 turrets: https://www.assetstore.unity3d.com/en/#!/content/27858
+
+ship: https://www.assetstore.unity3d.com/en/#!/content/34972
+space objects: https://www.assetstore.unity3d.com/en/#!/content/91874
+nebula skybox: https://www.assetstore.unity3d.com/en/#!/content/25117
+asteroids: https://www.assetstore.unity3d.com/en/#!/content/84988
+space skybox: https://www.assetstore.unity3d.com/en/#!/content/80503

@@ -10,11 +10,13 @@ public class PlayerController : MonoBehaviour {
     public float forwardMultiplier = 1f;
     public float walkSpeed = 4f;
     public float runSpeed = 8f;
-    public float jumpSpeed = 2f;
+    public float jumpSpeed = 5f;
 
     public float cameraX = 1f;
     public float cameraY = 1f;
     public float cameraSensitivity = 25f;
+
+    public bool locked = false;
 
     private MagBootsCtrl magBoots;
     private Rigidbody rb;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (locked) { return; }
         //rb.angularVelocity = new Vector3(0, 0, 0);
         MoveCharacter();
         MoveCamera();
@@ -49,14 +52,17 @@ public class PlayerController : MonoBehaviour {
         }
 
 
-        //Debug.Log("v: " + rb.velocity);
+	}
+
+    void FixedUpdate()
+    {
         if (Input.GetAxis("Jump") != 0 && IsGrounded())
         {
-            Vector3 jump = rb.velocity;
-            jump.y = jumpSpeed;
+            Debug.Log("jumping!");
+            Vector3 jump = rb.velocity + (transform.up * jumpSpeed);
             rb.velocity = jump;
         }
-	}
+    }
 
     public bool IsGrounded()
     {
