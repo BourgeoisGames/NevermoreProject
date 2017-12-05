@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class ScifiPlayerController : MonoBehaviour {
 
     public GameObject playerModel;
     public Transform camera;
@@ -18,8 +18,10 @@ public class PlayerController : MonoBehaviour {
 
     public bool locked = false;
 
+    private MagBootsCtrl magBoots;
     private Rigidbody rb;
     private bool _jumping = false;
+    private bool _magBoots = false;
     private Vector3 baseGravoty;
 
 	// Use this for initialization
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour {
         playerModel = gameObject;
         camera = transform.Find("CameraHolder");
         rb = GetComponent<Rigidbody>();
+        magBoots = transform.Find("MagBoots").gameObject.GetComponent<MagBootsCtrl>();
 	}
 	
 	// Update is called once per frame
@@ -89,13 +92,12 @@ public class PlayerController : MonoBehaviour {
     {
         float rotY = Input.GetAxis("Mouse X") * cameraX* Time.deltaTime * cameraSensitivity;
         float rotX = Input.GetAxis("Mouse Y") * cameraY* Time.deltaTime * cameraSensitivity;
-        if (rb.useGravity) { // || magBoots.bootsAttached) {
+        if (rb.useGravity || magBoots.bootsAttached) {
             playerModel.transform.Rotate(new Vector3(0, rotY, 0));
             camera.Rotate(new Vector3(-rotX, 0, 0));
-        } 
-//        else {
-//            playerModel.transform.Rotate(new Vector3(-rotX, rotY, 0));
-//        }
+        } else {
+            playerModel.transform.Rotate(new Vector3(-rotX, rotY, 0));
+        }
 
     }
 }

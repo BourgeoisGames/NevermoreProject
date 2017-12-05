@@ -31,7 +31,9 @@ public class NotificationManager : MonoBehaviour {
         }
         if (notificationArea == null)
         {
-            notificationArea = canvas.transform.Find("Notifications").gameObject;
+            Transform canvasTrans = canvas.transform;
+            Transform notifTrans = canvasTrans.Find("Notifications");
+            notificationArea = notifTrans.gameObject;
         }
 
         foreach (Transform child in notificationArea.transform) 

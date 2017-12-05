@@ -60,7 +60,10 @@ public class InteractionScanner : MonoBehaviour {
                 return true;
             }
         }
-        if (notify) { NotificationManager.inst.RemoveNotification(notifKey); }
+        if (notify) {
+            Debug.Log("notif key: " + notifKey);
+            NotificationManager.inst.RemoveNotification(notifKey);
+        }
         return false;
     }
 }
